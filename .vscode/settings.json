@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true,
+  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.iconTheme": "vscode-icons"
+}
