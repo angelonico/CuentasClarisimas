@@ -14,7 +14,9 @@ const TodoItem = ({ item }) => {
   return (
     <>
       <div className="todo-item">
-        <div className="todo-item-title">{item.title}</div>
+        <div className="todo-item-title">{item.title}
+          <div className= "precio"> {item.price}</div>
+        </div>
         <div className="todo-item-done">
           <input
             type="checkbox"

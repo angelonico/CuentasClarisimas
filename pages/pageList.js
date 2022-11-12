@@ -32,9 +32,9 @@ export default function PageList({ data }) {
   return (
     <Layout pageId="page4">
       <Head>
-        <title>Todo List</title>
+        <title>Menú</title>
       </Head>
-      <h1>Cosas por hacer</h1>
+      <h1>Carta disponible</h1>
       <div className="todo-list">
         {data.map((item, index) => (
           <TodoItem key={index} item={item} />
