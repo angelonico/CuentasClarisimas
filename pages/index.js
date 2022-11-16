@@ -1,73 +1,54 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
-const Index = () => {
+import Layout from "../components/layout";
+import TodoItem from "../components/todoItem";
+
+
+import { useEffect } from "react";
+
+export async function getServerSideProps(context) {
+  const res = await fetch("http://localhost:3000/data/todo.json");
+  const data = await res.json();
+
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { data },
+  };
+}
+
+
+const Index = ({data}) => {
+  useEffect(() => {
+    data.map((item, index) => {
+      console.log(item.id);
+      if (localStorage.getItem(item.id) === null) {
+        localStorage.setItem(item.id, JSON.stringify(item.done));
+      }
+      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
+    });
+  }, []);
+  
   return (
-    <div className="container" id="principal">
+<Layout pageId="page4">
+
       <Head>
-        <title>INFO104 Nextjs App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Menú</title>
       </Head>
+      <h1 id = "carta">Carta disponible</h1>
+      <div className="todo-list">
+        {data.map((item, index) => (
+          <TodoItem key={index} item={item} />
+        ))}
+      </div>
+            <div id = "total_a_pagar"></div>
 
-      <main>
-        <Image
-          src="/images/eye.png"
-          height={294} // Desired size with correct aspect ratio
-          width={470} // Desired size with correct aspect ratio
-          alt="ojo"
-        />
-
-        <h1 className="title">¿Cómo ha sido tu semana?</h1>
-        <div className="title">
-          <a href="http://www.google.com" target="_blank">
-            Ir a google
-          </a>
-        </div>
-        <p className="description">
-          Este código está en <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <Link
-            href={{
-              pathname: "/response",
-              query: { opt: 0, msg: "este es el mensaje" },
-            }}
-          >
-            <a className="card">Excelente!</a>
-          </Link>
-          <Link
-            href={{
-              pathname: "/response",
-              query: { opt: 1 },
-            }}
-          >
-            <a className="card">Más o menos no mas!</a>
-          </Link>
-          <Link
-            href={{
-              pathname: "/response",
-              query: { opt: 2 },
-            }}
-          >
-            <a className="card">Horrible! :(</a>
-          </Link>
-          <a className="card" href="/response?opt=0&msg=hola%20chao">
-            click me!
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a href="https://github.com/PabloSzx/INFO104-2021-1" target="_blank">
-          Repositorio y tutorial
-        </a>
-        &nbsp;-&nbsp;
-        <Link href="/about">
-          <a>Sobre esta página</a>
-        </Link>
-      </footer>
-    </div>
+</Layout>
+  
   );
 };
 
