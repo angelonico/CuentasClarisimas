@@ -35,7 +35,7 @@ const Index = ({data}) => {
   
   return (
 <Layout pageId="page4">
-
+    <div>
       <Head>
         <title>Menú</title>
       </Head>
@@ -46,6 +46,8 @@ const Index = ({data}) => {
         ))}
       </div>
             <div id = "total_a_pagar"></div>
+            <button type="button">Agregar</button>
+    </div>
 
 </Layout>
   
