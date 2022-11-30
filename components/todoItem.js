@@ -1,6 +1,8 @@
 import { CLIENT_STATIC_FILES_RUNTIME_REACT_REFRESH } from "next/dist/shared/lib/constants";
 import { useState, useEffect } from "react";
+
 var precio = 0;
+
 const TodoItem = ({ item }) => {
   const [checked, setChecked] = useState(item.done);
 
@@ -38,30 +40,42 @@ const TodoItem = ({ item }) => {
     b.innerHTML="Total $"+a;
   }
 
+  function sum(k){
+    if(k)
+      precio += item.price;
+
+    else
+      precio -= item.price;
+
+    cargar_total_localstorage();
+    guardar_total_localstorage(precio)
+    refresh();
+  }
+
   return (
     <>
       <div className="todo-item">
         <div className="todo-item-title">{item.title}</div>
         <div className= "precio"> ${item.price} &nbsp;&nbsp; </div>
         
-        <div className="todo-item-done">
-          <input
-            type="checkbox"
-            checked={checked}
-            onChange={(e) => {
-              setChecked(!checked);
-              if (checked){
-                precio = -item.price;
-              }
-              else{
-                precio = item.price;
-              }
-              cargar_total_localstorage();
-              guardar_total_localstorage(precio)
-              refresh();
-            }}
-          />
-        </div>
+        <button id="botoncito" onClick={(e) =>{
+            precio = item.price;        
+            cargar_total_localstorage();
+            guardar_total_localstorage(precio)
+            refresh();
+        }
+        }> +
+        </button>
+        /
+        <button onClick={(e) =>{
+            precio = -item.price;        
+            cargar_total_localstorage();
+            guardar_total_localstorage(precio)
+            refresh();
+        }
+        }> -
+        </button>
+
       </div>
     </>
   );

@@ -122,9 +122,6 @@ a {
   flex: 10;
   font-weight: bold;
 }
-.todo-item-done {
-  flex: 1;
-}
 
 .title a {
   color: #000000;
@@ -250,4 +247,8 @@ code {
 
 .precio{
   font-size: 90%;
+}
+
+.botoncito{
+  background-color: #2007ff;
 }

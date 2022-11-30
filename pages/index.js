@@ -46,7 +46,7 @@ const Index = ({data}) => {
         ))}
       </div>
             <div id = "total_a_pagar"></div>
-            <button type="button">Agregar</button>
+            <button type="button"> Agregar </button>
     </div>
 
 </Layout>
