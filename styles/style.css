@@ -30,9 +30,7 @@ body {
   border: 2px dashed #F06666;
   
 }
-#contenidoPrincipal{
 
-}
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
@@ -110,8 +108,7 @@ a {
   font-size: 0.8em;
   cursor: pointer;
 }
-.todo-list {
-}
+
 .todo-item {
   display: flex;
   width: 300px;
