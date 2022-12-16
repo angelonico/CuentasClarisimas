@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
+import Tarjeta from "../components/tarjeta";
 
 
 import { useEffect } from "react";
@@ -46,8 +47,10 @@ const Menu = ({data}) => {
             ))}
         </div>
             <div id = "total_a_pagar"></div>
-            <button type="button"> Agregar </button>
         </div>
+        <footer>
+          <a className="card" href="mesa">Volver</a>
+        </footer>
     </Layout>
   );
 };
