@@ -1,7 +1,11 @@
 import Head from "next/head";
+import Link from "next/link";
 import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
+
+
 import { useEffect } from "react";
+import { measureMemory } from "vm";
 
 export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/data/todo.json");
@@ -18,7 +22,8 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function PageList({ data }) {
+
+const Index = ({data}) => {
   useEffect(() => {
     data.map((item, index) => {
       console.log(item.id);
@@ -28,18 +33,29 @@ export default function PageList({ data }) {
       //localStorage.setItem(item.id + "__object", JSON.stringify(item));
     });
   }, []);
-
+  
   return (
-    <Layout pageId="page4">
+<Layout pageId="page4">
+    <div>
       <Head>
         <title>Menú</title>
       </Head>
-      <h1>Carta disponible</h1>
+      <h1 id = "carta">Carta disponible</h1>
       <div className="todo-list">
         {data.map((item, index) => (
           <TodoItem key={index} item={item} />
         ))}
       </div>
-    </Layout>
+            <div id = "total_a_pagar"></div>
+            <button type="button"> Agregar </button>
+    </div>
+    <footer>
+      <a className="card" href="/..">Volver</a>
+    </footer>
+
+</Layout>
+  
   );
-}
+};
+
+export default Index;

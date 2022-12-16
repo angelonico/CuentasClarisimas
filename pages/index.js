@@ -23,35 +23,23 @@ export async function getServerSideProps(context) {
 
 
 const Index = ({data}) => {
-  useEffect(() => {
-    data.map((item, index) => {
-      console.log(item.id);
-      if (localStorage.getItem(item.id) === null) {
-        localStorage.setItem(item.id, JSON.stringify(item.done));
-      }
-      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
-    });
-  }, []);
-  
-  return (
-<Layout pageId="page4">
-    <div>
+  return(
+    <div className="container" id="principal">
       <Head>
-        <title>Menú</title>
+        <title>Mesas</title>
       </Head>
-      <h1 id = "carta">Carta disponible</h1>
-      <div className="todo-list">
-        {data.map((item, index) => (
-          <TodoItem key={index} item={item} />
-        ))}
-      </div>
-            <div id = "total_a_pagar"></div>
-            <button type="button"> Agregar </button>
-    </div>
+      <main>
+        <h1>Mesas a tu atencion</h1>
+        <div className="grid">
+            <a className="card" href="mesa">Mesa 1</a> 
+        </div>
+        <div className="grid">
+            <a className="card" href="mesa">Mesa 2</a> 
+        </div>
+      </main>
 
-</Layout>
-  
-  );
+    </div>
+  )
 };
 
 export default Index;
