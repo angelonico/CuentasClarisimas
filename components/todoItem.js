@@ -16,59 +16,52 @@ const TodoItem = ({ item }) => {
     localStorage.setItem(item.id, JSON.stringify(checked));
   }, [checked]);
 
-  function actualizarListaPedido(num, suma){
+  function actualizarListaPedido(id, suma){
     let pedido = JSON.parse(localStorage.getItem("pedido"));
     console.log(pedido.length)
     console.log(pedido);
+    var pedido_existente = false;
+    let x = false;
     for (let i = 0; i < pedido.length; i++){
-      if (pedido[i][0] == num){
-        if (pedido[i][1]>0){
-        pedido[i][1] += suma;
+      if (pedido[i][0] == id){
+        pedido_existente = true;
+        if ((pedido[i][1] + suma)>=0){
+          pedido[i][1] += suma;
+          x = true;
         }
       }
     }
-    /*let i = {}
-    for (i in pedido){
-      console.log(i)
-      if (i[pedido.id] == num){
-        i[pedido.cantidad] += suma;
+    if (!pedido_existente){
+      if (suma>0){
+      var agregar_pedido = [id,suma];
+      console.log(agregar_pedido);
+      pedido.push(agregar_pedido);
+      x = true;
       }
-      else {}
     }
-    */
-
-                                   //Como obtener un elemento de una de las estructuras del arreglo
-    /*for (var i=0; i<pedido.lenght; i++){
-      if (pedido[i].id == num){
-        pedido[i].cantidad += suma;
-        localStorage.setItem("pedido", JSON.stringify(pedido));
-        console.log(pedido)
-      }
-      else{
-        crearListaPedido(num);
-      }
-  }*/
-    
-
+    localStorage.setItem("pedido", JSON.stringify(pedido));
+    return x;
   }
 
-  function crearListaPedido(identificador){
-    let newPedido =[identificador, 1]
-    let pedido = [newPedido];
+  function crearListaPedido(id){
+    let pedido = [[id, 1]];
     console.log(pedido)
     localStorage.setItem("pedido", JSON.stringify(pedido));
+    return true;
     
   }
   
   function getPedido(suma){
+    var x = false;
     if (localStorage.getItem("pedido")){
       console.log("Actualizando pedido...")
-      actualizarListaPedido(item.id, suma);
+      x = actualizarListaPedido(item.id, suma);
     }
     else{
       console.log("Creando nuevo pedido...")
-      crearListaPedido(item.id)
+      x = crearListaPedido(item.id)
     }
+    return x;
     
   }
 
@@ -100,10 +93,11 @@ const TodoItem = ({ item }) => {
     b.innerHTML="Total $"+a;
   }
 
-  function actualizarInfoItem(k,suma){
-    getPedido(suma);
+  function actualizarInfoItem(precio,cant){
+    if (getPedido(cant)){
     cargar_total_localstorage();
-    guardar_total_localstorage(k)
+    guardar_total_localstorage(precio);
+  }
     refresh();
   }
 
