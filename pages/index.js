@@ -2,9 +2,8 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
-
-
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import Tarjeta from "../components/tarjeta";
 
 export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/data/todo.json");
@@ -21,37 +20,54 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 const Index = ({data}) => {
-  useEffect(() => {
-    data.map((item, index) => {
-      console.log(item.id);
-      if (localStorage.getItem(item.id) === null) {
-        localStorage.setItem(item.id, JSON.stringify(item.done));
-      }
-      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
-    });
-  }, []);
-  
-  return (
-<Layout pageId="page4">
-    <div>
-      <Head>
-        <title>Menú</title>
-      </Head>
-      <h1 id = "carta">Carta disponible</h1>
-      <div className="todo-list">
-        {data.map((item, index) => (
-          <TodoItem key={index} item={item} />
-        ))}
-      </div>
-            <div id = "total_a_pagar"></div>
-            <button type="button"> Agregar </button>
-    </div>
+  const [likes, setLikes] = useState(3);
+  const elementos = [
+    { texto: "Mesa 1" },
+    { texto: "Mesa 2" },
+  ];
+  const [elementos2, setElementos2] = useState([
+    { texto: "Mesa 1" },
+    { texto: "Mesa 2" },
+  ]);
 
-</Layout>
-  
-  );
+  //useEffect(() => setElementos2([]), []);
+
+  function addLike() {
+    setLikes(likes + 1);
+  }
+
+  const addElemento = (tex) => {
+    const newElementos2 = [...elementos2, { texto: tex}];
+
+    setElementos2(newElementos2);
+    addLike();
+  };
+
+
+  return(
+    <div className="container" id="principal">
+      <Head>
+        <title>Mesas</title>
+      </Head>
+      <main>
+        <h1>Mesas a tu atencion</h1>
+        <div className="description">
+          <button
+            id="botonTarjeta"
+            onClick={() => addElemento("Mesa " + likes)}
+          >
+            Agregar Tarjeta
+          </button>
+        </div>
+        {elementos2.map((item, index) => (
+          <a href="mesa"><Tarjeta texto={item.texto} /></a>
+        ))}
+        
+      </main>
+
+    </div>
+  )
 };
 
 export default Index;

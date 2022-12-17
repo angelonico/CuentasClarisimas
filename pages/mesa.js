@@ -2,9 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
+import { useState, useEffect } from "react";
+import Tarjeta from "../components/tarjeta";
 
-
-import { useEffect } from "react";
 import { measureMemory } from "vm";
 
 export async function getServerSideProps(context) {
@@ -23,31 +23,45 @@ export async function getServerSideProps(context) {
 }
 
 
-const Index = ({data}) => {
-  useEffect(() => {
-    data.map((item, index) => {
-      console.log(item.id);
-      if (localStorage.getItem(item.id) === null) {
-        localStorage.setItem(item.id, JSON.stringify(item.done));
-      }
-      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
-    });
-  }, []);
-  
+const Mesa = ({data}) => {
+  const [likes, setLikes] = useState(2);
+  const elementos = [
+    { texto: "Persona 1" },
+  ];
+  const [elementos2, setElementos2] = useState([
+    { texto: "Persona 1" },
+  ]);
+
+  //useEffect(() => setElementos2([]), []);
+
+  function addLike() {
+    setLikes(likes + 1);
+  }
+
+  const addElemento = (tex) => {
+    const newElementos2 = [...elementos2, { texto: tex}];
+
+    setElementos2(newElementos2);
+    addLike();
+  };
   return (
 <Layout pageId="page4">
     <div>
       <Head>
-        <title>Menú</title>
+        <title>Mesa</title>
       </Head>
-      <h1 id = "carta">Carta disponible</h1>
-      <div className="todo-list">
-        {data.map((item, index) => (
-          <TodoItem key={index} item={item} />
+      <h1>Giles a tu atencion</h1>
+        <div className="description">
+          <button
+            id="botonTarjeta"
+            onClick={() => addElemento("Persona " + likes)}
+          >
+            Agregar Personas
+          </button>
+        </div>
+        {elementos2.map((item, index) => (
+          <a href="menu"><Tarjeta texto={item.texto} /></a>
         ))}
-      </div>
-            <div id = "total_a_pagar"></div>
-            <button type="button"> Agregar </button>
     </div>
     <footer>
       <a className="card" href="/..">Volver</a>
@@ -58,4 +72,4 @@ const Index = ({data}) => {
   );
 };
 
-export default Index;
+export default Mesa;
