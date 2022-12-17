@@ -1,9 +1,9 @@
 [
-    {"id": "todo-1", "price": 3500, "title":"Piscola","done":false},
-    {"id": "todo-2", "price": 2500, "title":"Heineken","done":false},
-    {"id": "todo-3", "price": 2800, "title":"Royal","done":false},
-    {"id": "todo-4", "price": 3000, "title":"Kunstmann","done":false},
-    {"id": "todo-5", "price": 2500, "title":"Vino","done":false},
-    {"id": "todo-6", "price": 1800, "title":"Jugo","done":false},
-    {"id": "todo-7", "price": 1200, "title":"Agua","done":false}
+    {"id":0 , "price": 3500, "title":"Piscola","done":false, "cantidad":0},
+    {"id":1 , "price": 2500, "title":"Heineken","done":false, "cantidad":0},
+    {"id":2 , "price": 2800, "title":"Royal","done":false, "cantidad":0},
+    {"id":3 , "price": 3000, "title":"Kunstmann","done":false, "cantidad":0},
+    {"id":4 , "price": 2500, "title":"Vino","done":false, "cantidad":0},
+    {"id":5 , "price": 1800, "title":"Jugo","done":false, "cantidad":0},
+    {"id":6 , "price": 1200, "title":"Agua","done":false, "cantidad":0}
 ]
