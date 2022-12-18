@@ -16,25 +16,22 @@ const TodoItem = ({ item }) => {
     localStorage.setItem(item.id, JSON.stringify(checked));
   }, [checked]);
 
-  function actualizarListaPedido(id, suma){
-    let pedido = JSON.parse(localStorage.getItem("pedido"));
-    console.log(pedido.length)
-    console.log(pedido);
-    var pedido_existente = false;
-    let x = false;
-    for (let i = 0; i < pedido.length; i++){
-      if (pedido[i][0] == id){
+  function actualizarListaPedido(id, cantidad){ //id es el id del producto, y cantidad es la cantidad de productos que se están solicitando, puede ser 1 (pedir) o -1 (devolver)
+    let pedido = JSON.parse(localStorage.getItem("pedido")); // "Recoge" el pedido guardado en el localStorage
+    var pedido_existente = false; // Booleano que se usa para ver si el cliente ya pidió el mismo elemento anteriormente
+    let x = false; // Booleano utilizado para verificar si se realizo algún pedido y se haya modificado el arreglo del pedido del cliente (ya seaa agregar o quitar elementos) 
+    for (let i = 0; i < pedido.length; i++){ //Recorrer el pedido de 1 cliente
+      if (pedido[i][0] == id){ // verifica si el elemento ya fue pedido anteriormente
         pedido_existente = true;
-        if ((pedido[i][1] + suma)>=0){
-          pedido[i][1] += suma;
+        if ((pedido[i][1] + cantidad)>=0){  // verifica que no se devuelvan elementos que no se hayan pedido (imposibilita tener -1 elementos)
+          pedido[i][1] += cantidad;
           x = true;
         }
       }
     }
-    if (!pedido_existente){
-      if (suma>0){
-      var agregar_pedido = [id,suma];
-      console.log(agregar_pedido);
+    if (!pedido_existente){ //Si el elemento que se esta pidiendo no se pidió con anterioridad, entra aquí
+      if (cantidad>0){ //Verifica que no se estén restando elementos
+      var agregar_pedido = [id,cantidad];
       pedido.push(agregar_pedido);
       x = true;
       }
