@@ -29,6 +29,32 @@ const Menu = ({data}) => {
       //localStorage.setItem(item.id + "__object", JSON.stringify(item));
     });
   }, []);
+
+  function buscar(e){
+    /*
+    if(e.target.matches("#buscador")){
+
+      //if (e.key ==="Escape")e.target.value = "";
+
+      document.querySelectorAll(".itemProducto").forEach(producto =>{
+
+          producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+            ?producto.classList.remove("filtro")
+            :producto.classList.add("filtro")
+      })*/
+
+    const b=document.querySelector(".todo-list");
+    console.log("BUSQUEDA: "+e.target.value);
+    for(let i=0;i<data.length;i++){
+      const resultado=data[i].title;
+      if(resultado.toLowerCase().indexOf(e.target.value)!==-1){
+        console.log(resultado)
+      }
+    }/*
+    console.log(data[0].price);
+    e.target.matches("#buscador");
+    console.log(e.target.value)*/
+  }
   
   return (
     <Layout pageId="page4">
@@ -38,10 +64,15 @@ const Menu = ({data}) => {
         </Head>
         
         <h1 id = "carta">Carta disponible</h1>
+        
+        <input type="text" id="buscador" placeholder="Buscador...." onKeyUp={(e) =>{
+          buscar(e);
+        }
+        }></input>
 
         <div className="todo-list">
             {data.map((item, index) => (
-            <TodoItem key={index} item={item} />
+            <TodoItem className="itemProducto" key={index} item={item} />
             ))}
         </div>
 
