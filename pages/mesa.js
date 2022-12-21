@@ -22,10 +22,10 @@ export async function getServerSideProps(context) {
 const Mesa = ({data}) => {
   const [likes, setLikes] = useState(2);
   const elementos = [
-    { texto: "Persona 1" },
+    { texto: "Dooky amigo 1" },
   ];
   const [elementos2, setElementos2] = useState([
-    { texto: "Persona 1" },
+    { texto: "Dooky amigo 1" },
   ]);
 
   //useEffect(() => setElementos2([]), []);
@@ -52,9 +52,10 @@ const Mesa = ({data}) => {
         <h1 className="titulo"> PERSONAS A TU ATENCIÓN </h1>
 
         <div className="pedido">
-          ajua
+          Bienvenidos al CUM de DOOKYYYY!!!!!
         </div>
 
+        <img src="images/MesaDeRey.JPG"></img>
         <div className="grid_2">
           {elementos2.map((item, index) => (
             <a href="menu"><Tarjeta texto={item.texto} /></a>
@@ -65,9 +66,9 @@ const Mesa = ({data}) => {
 
       <button
           className="botoncito"
-          onClick={() => addElemento("Persona " + likes)}
+          onClick={() => addElemento("Dooky amigo " + likes)}
           >
-          Agregar Personas (+)
+          Agregar Dooky amigos (+)
         </button>
             
       <a className="back" href="/.."> Atrás </a>
