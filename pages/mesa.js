@@ -1,7 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
-import Layout from "../components/layout";
-import TodoItem from "../components/todoItem";
 import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
 
@@ -21,7 +18,6 @@ export async function getServerSideProps(context) {
     props: { data },
   };
 }
-
 
 const Mesa = ({data}) => {
   const [likes, setLikes] = useState(2);
@@ -44,31 +40,39 @@ const Mesa = ({data}) => {
     setElementos2(newElementos2);
     addLike();
   };
-  return (
-<Layout pageId="page4">
-    <div>
-      <Head>
-        <title>Mesa</title>
-      </Head>
-      <h1>Giles a tu atencion</h1>
-        <div className="description">
-          <button
-            id="botonTarjeta"
-            onClick={() => addElemento("Persona " + likes)}
-          >
-            Agregar Personas
-          </button>
-        </div>
-        {elementos2.map((item, index) => (
-          <a href="menu"><Tarjeta texto={item.texto} /></a>
-        ))}
-    </div>
-    <footer>
-      <a className="card" href="/..">Volver</a>
-    </footer>
 
-</Layout>
-  
+  return (
+    <div className="container">
+      <Head>
+        <title> Mesa </title>
+      </Head>
+      
+      <main className="main_2">
+
+        <h1 className="titulo"> PERSONAS A TU ATENCIÓN </h1>
+
+        <div className="pedido">
+          ajua
+        </div>
+
+        <div className="grid_2">
+          {elementos2.map((item, index) => (
+            <a href="menu"><Tarjeta texto={item.texto} /></a>
+        ))}
+        </div>
+        
+      </main>
+
+      <button
+          className="botoncito"
+          onClick={() => addElemento("Persona " + likes)}
+          >
+          Agregar Personas (+)
+        </button>
+            
+      <a className="back" href="/.."> Atrás </a>
+
+    </div>
   );
 };
 

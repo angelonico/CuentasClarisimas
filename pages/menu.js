@@ -1,9 +1,6 @@
 import Head from "next/head";
-import Link from "next/link";
 import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
-import Tarjeta from "../components/tarjeta";
-
 
 import { useEffect } from "react";
 
@@ -22,7 +19,6 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 const Menu = ({data}) => {
   useEffect(() => {
     data.map((item, index) => {
@@ -36,21 +32,27 @@ const Menu = ({data}) => {
   
   return (
     <Layout pageId="page4">
-        <div>
+      <div>
         <Head>
             <title>Menú</title>
         </Head>
+        
         <h1 id = "carta">Carta disponible</h1>
+
         <div className="todo-list">
             {data.map((item, index) => (
             <TodoItem key={index} item={item} />
             ))}
         </div>
-            <div id = "total_a_pagar"></div>
-        </div>
-        <footer>
-          <a className="card" href="mesa">Volver</a>
-        </footer>
+
+        <div id = "total_a_pagar"></div>
+
+      </div>
+
+      <footer>
+        <a className="card" href="mesa">Volver</a>
+      </footer>
+      
     </Layout>
   );
 };

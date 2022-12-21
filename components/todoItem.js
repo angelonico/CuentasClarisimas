@@ -21,7 +21,6 @@ const TodoItem = ({ item }) => {
     refresh();
     actualizarInfoItem(0,0);
   });
-    
   
   function actualizarListaPedido(id, cantidad){ //id es el id del producto, y cantidad es la cantidad de productos que se están solicitando, puede ser 1 (pedir) o -1 (devolver)
     let pedido = JSON.parse(localStorage.getItem("pedido")); // "Recoge" el pedido guardado en el localStorage
@@ -43,6 +42,7 @@ const TodoItem = ({ item }) => {
         }
       }
     }
+
     if (!pedido_existente){ //Si el elemento que se esta pidiendo no se pidió con anterioridad, entra aquí
       if (cantidad>0){ //Verifica que no se estén restando elementos
         var agregar_pedido = [id,cantidad];
@@ -58,8 +58,7 @@ const TodoItem = ({ item }) => {
   function crearListaPedido(id){
     let pedido = [[id, 1]];
     localStorage.setItem("pedido", JSON.stringify(pedido));
-    return true;
-    
+    return true; 
   }
   
   function getPedido(suma){
@@ -73,7 +72,6 @@ const TodoItem = ({ item }) => {
       x = crearListaPedido(item.id)
     }
     return x;
-    
   }
 
   function guardar_total_localstorage(suma){
@@ -112,7 +110,6 @@ const TodoItem = ({ item }) => {
     refresh();
   }
 
-  
   return (
     <>
       <div className="todo-item">
@@ -120,15 +117,15 @@ const TodoItem = ({ item }) => {
         <div className= "precio"> ${item.price} &nbsp;&nbsp; </div>
         
         <button id="botoncito" onClick={(e) =>{
-            precio = item.price;        
-            actualizarInfoItem(precio,1);
+          precio = item.price;        
+          actualizarInfoItem(precio,1);
         }
         }> +
         </button>
         /
         <button onClick={(e) =>{
-            precio = -item.price;        
-            actualizarInfoItem(precio,-1);
+          precio = -item.price;        
+          actualizarInfoItem(precio,-1);
         }
         }> -
         </button>
@@ -138,4 +135,5 @@ const TodoItem = ({ item }) => {
   );
   
 };
+
 export default TodoItem;

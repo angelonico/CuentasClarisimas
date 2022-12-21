@@ -1,7 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
-import Layout from "../components/layout";
-import TodoItem from "../components/todoItem";
 import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
 
@@ -44,28 +41,29 @@ const Index = ({data}) => {
     addLike();
   };
 
-
-  return(
-    <div className="container" id="principal">
+  return (
+    <div className="container">
       <Head>
-        <title>Mesas</title>
+        <title> Mesas </title>
       </Head>
-      <main>
-        <h1>Mesas a tu atencion</h1>
-        <div className="description">
-          <button
-            id="botonTarjeta"
+
+      <main className="main_1">
+        <h1 className="titulo"> MESAS A TU ATENCIÓN </h1>
+
+        <div className="grid_1">
+          {elementos2.map((item, index) => (
+            <a href="mesa"><Tarjeta texto={item.texto} /></a>
+          ))}
+        </div>
+
+        <button
+            className="botoncito"
             onClick={() => addElemento("Mesa " + likes)}
           >
-            Agregar Tarjeta
-          </button>
-        </div>
-        {elementos2.map((item, index) => (
-          <a href="mesa"><Tarjeta texto={item.texto} /></a>
-        ))}
-        
-      </main>
+            Agregar Mesa (+)
+        </button>
 
+      </main>
     </div>
   )
 };
