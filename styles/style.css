@@ -199,3 +199,7 @@ a {
   border-radius: 10px;
   font-weight: 550;
 }
+
+.filtro{
+  display:none;
+}

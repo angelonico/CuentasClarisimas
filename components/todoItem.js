@@ -56,7 +56,7 @@ const TodoItem = ({ item }) => {
   }
 
   function crearListaPedido(id){
-    let pedido = [[id, 1]];
+    let pedido = [[id, 0]];
     localStorage.setItem("pedido", JSON.stringify(pedido));
     return true; 
   }
