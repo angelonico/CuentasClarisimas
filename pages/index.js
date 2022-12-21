@@ -18,27 +18,59 @@ export async function getServerSideProps(context) {
 }
 
 const Index = ({data}) => {
-  const [likes, setLikes] = useState(3);
-  const elementos = [
-    { texto: "Mesa 1" },
-    { texto: "Mesa 2" },
-  ];
-  const [elementos2, setElementos2] = useState([
-    { texto: "Mesa 1" },
-    { texto: "Mesa 2" },
-  ]);
+  
+  const [elementos2, setElementos2] = useState([1,2]);
+  const [likes, setLikes] = useState(elementos2.length+1);
 
+  useEffect(() => {
+    
+    if (localStorage.getItem("arreglo_mesas")){
+    const elementos2 = JSON.parse(localStorage.getItem("arreglo_mesas"));
+    const likes = elementos2.length+1; 
+    console.log("Obteniendo arreglo desde local storage")
+    }
+
+    else{
+    localStorage.setItem("arreglo_mesas", JSON.stringify(elementos2));
+    const likes = JSON.parse(localStorage.getItem("arreglo_mesas")).length
+    console.log("Seteando el arreglo de mesas");
+  }
+  })
+  
+  
+  
+  //console.log(elementos2);
   //useEffect(() => setElementos2([]), []);
 
-  function addLike() {
-    setLikes(likes + 1);
+  function addLike(n) {
+    setLikes(n + 1);
   }
 
   const addElemento = (tex) => {
-    const newElementos2 = [...elementos2, { texto: tex}];
+    const elementos2 = JSON.parse(localStorage.getItem("arreglo_mesas"));;
+    elementos2.push(tex);
+    setElementos2(elementos2);
+    addLike(elementos2.length);
+    localStorage.setItem("arreglo_mesas", JSON.stringify(elementos2));
 
-    setElementos2(newElementos2);
-    addLike();
+    /*if (localStorage.getItem("arreglo_mesas")){
+      console.log("Obteniendo arreglo de mesas ...")
+      let mesas = JSON.parse(localStorage.getItem("arreglo_mesas"));
+      total = total + suma;
+    }
+    else{
+      console.log("Creando arreglo de mesas...")
+    }
+
+    
+    if (total<0){
+      total -= suma;
+    }
+    localStorage.setItem("total", JSON.stringify(total));
+    console.log(total);
+    */
+
+    console.log(elementos2);
   };
 
   return (
@@ -52,13 +84,15 @@ const Index = ({data}) => {
 
         <div className="grid_1">
           {elementos2.map((item, index) => (
-            <a href="mesa"><Tarjeta texto={item.texto} /></a>
+            
+            <a href="mesa"><Tarjeta texto={"Mesa "+ (index+1)} /></a>
+            
           ))}
         </div>
 
         <button
             className="botoncito"
-            onClick={() => addElemento("Mesa " + likes)}
+            onClick={() => addElemento(likes)}
           >
             Agregar Mesa (+)
         </button>
