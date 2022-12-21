@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
 
 import { useEffect } from "react";
@@ -57,34 +56,32 @@ const Menu = ({data}) => {
   }
   
   return (
-    <Layout pageId="page4">
-      <div>
-        <Head>
-            <title>Menú</title>
-        </Head>
-        
-        <h1 id = "carta">Carta disponible</h1>
-        
-        <input type="text" id="buscador" placeholder="Buscador...." onKeyUp={(e) =>{
+    <div className="container">
+
+      <Head>
+        <title> Menú </title>
+      </Head>
+      
+      <main className="main_1">
+        <h1 className="titulo"> CARTA DISPONIBLE </h1>
+
+        <input type="text" id="buscador" placeholder="Buscador..." onKeyUp={(e) =>{
           buscar(e);
         }
         }></input>
-
-        <div className="todo-list">
-            {data.map((item, index) => (
-            <TodoItem className="itemProducto" key={index} item={item} />
-            ))}
+        
+        <div className="a-pedir">
+          {data.map((item, index) => (
+          <TodoItem className="itemProducto" key={index} item={item} />
+          ))}
         </div>
 
         <div id = "total_a_pagar"></div>
+      </main>
 
-      </div>
+      <a className="back" href="/.."> Atrás </a>
 
-      <footer>
-        <a className="card" href="mesa">Volver</a>
-      </footer>
-      
-    </Layout>
+    </div>
   );
 };
 

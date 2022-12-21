@@ -52,7 +52,7 @@ const Mesa = ({data}) => {
         <h1 className="titulo"> PERSONAS A TU ATENCIÓN </h1>
 
         <div className="pedido">
-          ajsdf
+          ajua
         </div>
 
         <div className="grid_2">
