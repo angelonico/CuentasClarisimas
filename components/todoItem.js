@@ -56,7 +56,7 @@ const TodoItem = ({ item }) => {
   }
 
   function crearListaPedido(id){
-    let pedido = [[id, 1]];
+    let pedido = [[id, 0]];
     localStorage.setItem("pedido", JSON.stringify(pedido));
     return true; 
   }
@@ -112,23 +112,26 @@ const TodoItem = ({ item }) => {
 
   return (
     <>
-      <div className="todo-item">
-        <div className="todo-item-title">{item.title}</div>
-        <div className= "precio"> ${item.price} &nbsp;&nbsp; </div>
+      <div className="item">
+        <div className="item-title"> {item.title} </div>
+        <div className= "precio"> ${item.price} </div>
         
-        <button id="botoncito" onClick={(e) =>{
+        <button className="boton-precio" onClick={(e) =>{
           precio = item.price;        
           actualizarInfoItem(precio,1);
         }
         }> +
         </button>
-        /
-        <button onClick={(e) =>{
+
+        &nbsp;/&nbsp;
+
+        <button className="boton-precio" onClick={(e) =>{
           precio = -item.price;        
           actualizarInfoItem(precio,-1);
         }
         }> -
         </button>
+
         <div className="cantidad-item">{item.cantidad}</div>
       </div>
     </>

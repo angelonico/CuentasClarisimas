@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Layout from "../components/layout";
 import TodoItem from "../components/todoItem";
 
 import { useEffect } from "react";
@@ -31,60 +30,44 @@ const Menu = ({data}) => {
   }, []);
 
   function buscar(e){
-    /*
-    if(e.target.matches("#buscador")){
-
-      //if (e.key ==="Escape")e.target.value = "";
-
-      document.querySelectorAll(".itemProducto").forEach(producto =>{
-
-          producto.textContent.toLowerCase().includes(e.target.value.toLowerCase())
-            ?producto.classList.remove("filtro")
-            :producto.classList.add("filtro")
-      })*/
-
-    const b=document.querySelector(".todo-list");
-    console.log("BUSQUEDA: "+e.target.value);
-    for(let i=0;i<data.length;i++){
-      const resultado=data[i].title;
-      if(resultado.toLowerCase().indexOf(e.target.value)!==-1){
-        console.log(resultado)
+    document.querySelectorAll(".item").forEach(productito=>{ //Itera por los items de los productos
+      const titulo=productito.querySelector(".item-title"); //Seleccioa el titulo del producto del respectivo item
+      if(titulo.textContent.toLocaleLowerCase().indexOf(e.target.value.toLowerCase())!==-1){ //Compara el titulo con la busqieda
+        productito.classList.remove("filtro"); //Si coincide, quita clase filtro, es decir, lo hace visible
+      }else{
+        productito.classList.add("filtro"); //Agrega clase flitro, es decir, lo hace invisible
       }
-    }/*
-    console.log(data[0].price);
-    e.target.matches("#buscador");
-    console.log(e.target.value)*/
+      //La clase filtro esta definida en style.css
+    })
   }
   
   return (
-    <Layout pageId="page4">
-      <div>
-        <Head>
-            <title>Menú</title>
-        </Head>
-        
-        <h1 id = "carta">Carta disponible</h1>
-        
-        <input type="text" id="buscador" placeholder="Buscador...." onKeyUp={(e) =>{
+    <div className="container">
+
+      <Head>
+        <title> Menú </title>
+      </Head>
+      
+      <main className="main_1">
+        <h1 className="titulo"> CARTA DISPONIBLE </h1>
+
+        <input type="text" id="buscador" placeholder="Buscador..." onKeyUp={(e) =>{
           buscar(e);
         }
         }></input>
-
-        <div className="todo-list">
-            {data.map((item, index) => (
-            <TodoItem className="itemProducto" key={index} item={item} />
-            ))}
+        
+        <div className="a-pedir">
+          {data.map((item, index) => (
+          <TodoItem className="itemProducto" key={index} item={item} />
+          ))}
         </div>
 
         <div id = "total_a_pagar"></div>
+      </main>
 
-      </div>
+      <a className="back" href="mesa"> Atrás </a>
 
-      <footer>
-        <a className="card" href="mesa">Volver</a>
-      </footer>
-      
-    </Layout>
+    </div>
   );
 };
 
