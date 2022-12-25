@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
 
 export async function getServerSideProps(context) {
-  const res = await fetch("http://localhost:3000/data/todo.json");
+  const res = await fetch("http://localhost:3000/data/mesa.json");
   const data = await res.json();
 
   if (!data) {
@@ -18,59 +18,60 @@ export async function getServerSideProps(context) {
 }
 
 const Index = ({data}) => {
-  
-  const [elementos2, setElementos2] = useState([1,2]);
-  const [likes, setLikes] = useState(elementos2.length+1);
-
   useEffect(() => {
-    
-    if (localStorage.getItem("arreglo_mesas")){
-    const elementos2 = JSON.parse(localStorage.getItem("arreglo_mesas"));
-    const likes = elementos2.length+1; 
-    console.log("Obteniendo arreglo desde local storage")
-    }
+    data.map((item, index) => {
+      if (localStorage.getItem("arreglo_mesas") === null) {
+        let x = [item.numero_mesa];
+        localStorage.setItem("arreglo_mesas", JSON.stringify(x));
+      }
+      else{
+        var arreglo = JSON.parse(localStorage.getItem("arreglo_mesas"));
+        //console.log("Arreglo: " + arreglo);
+        let mesa_existente = false;
 
+        for (var i in arreglo){
+          //console.log("Comparando mesa: " + arreglo[i] + ", con item.numero_mesa: " + item.numero_mesa)
+          if (arreglo[i] == item.numero_mesa){
+            mesa_existente = true;
+            //console.log("La mesa ya existe");
+          }
+        }
+        if (!mesa_existente){
+            arreglo.push(item.numero_mesa);
+            //console.log("Mesa "+ item.numero_mesa + " creada.")
+            localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo));
+        }
+      }
+    });
+  }, []);
+
+  function addElemento() {
+    let arreglo = JSON.parse(localStorage.getItem("arreglo_mesas"));
+    let cont = 0;
+    let mesa_intermedia = false;
+    let numero_mesa_intermedia = 0;
+    let arreglo_ordenado = arreglo.sort();
+      for (var i in arreglo_ordenado){
+        cont++;
+        if (cont != arreglo_ordenado[i] && !mesa_intermedia){
+          //console.log("Contador: " + cont + " numero en posición " + i + " es " + arreglo_ordenado[i]);
+          mesa_intermedia = true;
+          numero_mesa_intermedia = cont;
+        }
+    }
+    //console.log("Arreglo_length: " + arreglo_ordenado.length);
+    if (mesa_intermedia){
+      arreglo_ordenado.push(numero_mesa_intermedia);
+    }
     else{
-    localStorage.setItem("arreglo_mesas", JSON.stringify(elementos2));
-    const likes = JSON.parse(localStorage.getItem("arreglo_mesas")).length
-    console.log("Seteando el arreglo de mesas");
-  }
-  })
-  
-  
-  
-  //console.log(elementos2);
-  //useEffect(() => setElementos2([]), []);
-
-  function addLike(n) {
-    setLikes(n + 1);
-  }
-
-  const addElemento = (tex) => {
-    const elementos2 = JSON.parse(localStorage.getItem("arreglo_mesas"));;
-    elementos2.push(tex);
-    setElementos2(elementos2);
-    addLike(elementos2.length);
-    localStorage.setItem("arreglo_mesas", JSON.stringify(elementos2));
-
-    /*if (localStorage.getItem("arreglo_mesas")){
-      console.log("Obteniendo arreglo de mesas ...")
-      let mesas = JSON.parse(localStorage.getItem("arreglo_mesas"));
-      total = total + suma;
-    }
-    else{
-      console.log("Creando arreglo de mesas...")
+      arreglo_ordenado.push(cont+1);
     }
 
-    
-    if (total<0){
-      total -= suma;
-    }
-    localStorage.setItem("total", JSON.stringify(total));
-    console.log(total);
-    */
+    console.log(arreglo_ordenado);
 
-    console.log(elementos2);
+    localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo_ordenado));
+
+    //localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo));
   };
 
   return (
@@ -81,18 +82,14 @@ const Index = ({data}) => {
 
       <main className="main_1">
         <h1 className="titulo"> MESAS A TU ATENCIÓN </h1>
-
         <div className="grid_1">
-          {elementos2.map((item, index) => (
-            
+          {data.map((item, index) => (
             <a href="mesa"><Tarjeta texto={"Mesa "+ (index+1)} /></a>
-            
           ))}
         </div>
-
         <button
             className="botoncito"
-            onClick={() => addElemento(likes)}
+            onClick={() => addElemento()}
           >
             Agregar Mesa (+)
         </button>
