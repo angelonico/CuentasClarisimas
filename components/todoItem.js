@@ -104,8 +104,8 @@ const TodoItem = ({ item }) => {
 
   function actualizarInfoItem(precio,cant){
     if (getPedido(cant)){
-    cargar_total_localstorage();
-    guardar_total_localstorage(precio);
+      cargar_total_localstorage();
+      guardar_total_localstorage(precio);
     }
     refresh();
   }

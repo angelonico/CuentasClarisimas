@@ -1,4 +1,10 @@
 [
-    {"numero_mesa": 1},
-    {"numero_mesa": 2}
+    {"numero_mesa": 1,"visible":true,"Personas":[]},
+    {"numero_mesa": 2,"visible":false,"Personas":[]},
+    {"numero_mesa": 3,"visible":false,"Personas":[]},
+    {"numero_mesa": 4,"visible":false,"Personas":[]},
+    {"numero_mesa": 5,"visible":false,"Personas":[]},
+    {"numero_mesa": 6,"visible":false,"Personas":[]},
+    {"numero_mesa": 7,"visible":false,"Personas":[]},
+    {"numero_mesa": 8,"visible":false,"Personas":[]}
 ]

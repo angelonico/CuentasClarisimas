@@ -2,8 +2,6 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
 
-import { measureMemory } from "vm";
-
 export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/data/todo.json");
   const data = await res.json();
@@ -20,25 +18,36 @@ export async function getServerSideProps(context) {
 }
 
 const Mesa = ({data}) => {
-  const [likes, setLikes] = useState(2);
-  const elementos = [
-    { texto: "Persona 1" },
-  ];
-  const [elementos2, setElementos2] = useState([
-    { texto: "Persona 1" },
+  const [personasCantidad, setPersonasCantidad] = useState(2);
+  const [mesas]=[];
+  
+  const [personas, setPersonas] = useState([
+    { name: "Persona 1" },
   ]);
+  
+  useEffect(() => {//Carga en un todo
+    mesas=JSON.parse(localStorage.getItem("Mesas"))
+    let i=0;
+    mesas.forEach(elemento=>{
+      elemento.Personas=personas;
+    })
+    localStorage.setItem("Mesas",JSON.stringify(mesas));
+      
+      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
+  });
 
   //useEffect(() => setElementos2([]), []);
 
-  function addLike() {
-    setLikes(likes + 1);
+  function addPersonasCantidad() {
+    setPersonasCantidad(personasCantidad + 1);
   }
 
   const addElemento = (tex) => {
-    const newElementos2 = [...elementos2, { texto: tex}];
-
-    setElementos2(newElementos2);
-    addLike();
+    const newPersona= [...personas, { name: tex}];
+  
+    setPersonas(newPersona);
+    addPersonasCantidad();
+    console.log(localStorage);
   };
 
   return (
@@ -56,8 +65,8 @@ const Mesa = ({data}) => {
         </div>
 
         <div className="grid_2">
-          {elementos2.map((item, index) => (
-            <a href="menu"><Tarjeta texto={item.texto} /></a>
+          {personas.map((item, index) => (
+            <a href="menu"><Tarjeta texto={item.name} /></a>
         ))}
         </div>
         
@@ -65,7 +74,7 @@ const Mesa = ({data}) => {
 
       <button
           className="botoncito"
-          onClick={() => addElemento("Persona " + likes)}
+          onClick={() => addElemento("Persona " + personasCantidad)}
           >
           Agregar pesonas (+)
         </button>

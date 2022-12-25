@@ -30,6 +30,7 @@ const Menu = ({data}) => {
   }, []);
 
   function buscar(e){
+    if(e.key==="Escape") e.target.value=""; //Para eliminar busqueda con escape
     document.querySelectorAll(".item").forEach(productito=>{ //Itera por los items de los productos
       const titulo=productito.querySelector(".item-title"); //Seleccioa el titulo del producto del respectivo item
       if(titulo.textContent.toLocaleLowerCase().indexOf(e.target.value.toLowerCase())!==-1){ //Compara el titulo con la busqieda
@@ -50,7 +51,8 @@ const Menu = ({data}) => {
       
       <main className="main_1">
         <h1 className="titulo"> CARTA DISPONIBLE </h1>
-
+        <div id = "total_a_pagar"></div>
+        <br></br>
         <input type="text" id="buscador" placeholder="Buscador..." onKeyUp={(e) =>{
           buscar(e);
         }
@@ -58,11 +60,10 @@ const Menu = ({data}) => {
         
         <div className="a-pedir">
           {data.map((item, index) => (
-          <TodoItem className="itemProducto" key={index} item={item} />
+            <TodoItem className="itemProducto" key={index} item={item} />
           ))}
         </div>
 
-        <div id = "total_a_pagar"></div>
       </main>
 
       <a className="back" href="mesa"> Atrás </a>

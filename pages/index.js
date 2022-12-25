@@ -1,3 +1,4 @@
+import { get } from "http";
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
@@ -18,61 +19,47 @@ export async function getServerSideProps(context) {
 }
 
 const Index = ({data}) => {
-  useEffect(() => {
-    data.map((item, index) => {
-      if (localStorage.getItem("arreglo_mesas") === null) {
-        let x = [item.numero_mesa];
-        localStorage.setItem("arreglo_mesas", JSON.stringify(x));
+  const [mesas]=useState(data); //Carga los valores del json
+  
+  useEffect(() => {//Carga los valores del localstorage en mesa o, si no hay valores, guarda los valores de mesa (data) en localstorage
+    if(JSON.parse(localStorage.getItem("Mesas"))==null){
+      localStorage.setItem("Mesas", JSON.stringify(mesas));
+    }else{
+      mesas=JSON.parse(localStorage.getItem("Mesas"));
+    }
+  });
+
+  useEffect(()=>{ //"refresca" las mesas al cagar la pagina
+    visibilidad();
+  })
+  
+  function addElemento(){ //Deja visible una nueva mesa
+    let unico=true,i=0;
+    document.querySelectorAll(".tarjetaMesa").forEach(elemento=>{ //Itera por las mesas
+      if(elemento.classList.contains("filtro") && unico){ //Encuentra la nueva mesa (es la siguiente sin visibilidad)
+        elemento.classList.remove("filtro"); //Hace visible la mesa
+        
+        mesas=JSON.parse(localStorage.getItem("Mesas"));//Obtiene el localstorage
+        mesas[i].visible=!mesas[i].visible; //Agrega la nueva mesa visible
+        localStorage.setItem("Mesas",JSON.stringify(mesas)); //Guarda el local storage
+
+        unico=false;
       }
-      else{
-        var arreglo = JSON.parse(localStorage.getItem("arreglo_mesas"));
-        //console.log("Arreglo: " + arreglo);
-        let mesa_existente = false;
+      i++;
+    })
+  }
 
-        for (var i in arreglo){
-          //console.log("Comparando mesa: " + arreglo[i] + ", con item.numero_mesa: " + item.numero_mesa)
-          if (arreglo[i] == item.numero_mesa){
-            mesa_existente = true;
-            //console.log("La mesa ya existe");
-          }
-        }
-        if (!mesa_existente){
-            arreglo.push(item.numero_mesa);
-            //console.log("Mesa "+ item.numero_mesa + " creada.")
-            localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo));
-        }
+  function visibilidad(){ //Similar a un refresh()
+    let i=0;
+    document.querySelectorAll(".tarjetaMesa").forEach(elemento=>{ //Itera por las mesas
+      if(!mesas[i++].visible){ //Checkea para saber si debe ocultarlo o no
+        elemento.classList.add("filtro"); //Clase que oculta, definida al final de style.css
+      }else{
+        elemento.classList.remove("filtro");
       }
-    });
-  }, []);
+    })
 
-  function addElemento() {
-    let arreglo = JSON.parse(localStorage.getItem("arreglo_mesas"));
-    let cont = 0;
-    let mesa_intermedia = false;
-    let numero_mesa_intermedia = 0;
-    let arreglo_ordenado = arreglo.sort();
-      for (var i in arreglo_ordenado){
-        cont++;
-        if (cont != arreglo_ordenado[i] && !mesa_intermedia){
-          //console.log("Contador: " + cont + " numero en posición " + i + " es " + arreglo_ordenado[i]);
-          mesa_intermedia = true;
-          numero_mesa_intermedia = cont;
-        }
-    }
-    //console.log("Arreglo_length: " + arreglo_ordenado.length);
-    if (mesa_intermedia){
-      arreglo_ordenado.push(numero_mesa_intermedia);
-    }
-    else{
-      arreglo_ordenado.push(cont+1);
-    }
-
-    console.log(arreglo_ordenado);
-
-    localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo_ordenado));
-
-    //localStorage.setItem("arreglo_mesas", JSON.stringify(arreglo));
-  };
+  }
 
   return (
     <div className="container">
@@ -83,8 +70,8 @@ const Index = ({data}) => {
       <main className="main_1">
         <h1 className="titulo"> MESAS A TU ATENCIÓN </h1>
         <div className="grid_1">
-          {data.map((item, index) => (
-            <a href="mesa"><Tarjeta texto={"Mesa "+ (index+1)} /></a>
+          {mesas.map((item, index) => (
+            <a className="tarjetaMesa" href="mesa"><Tarjeta texto={"Mesa "+item.numero_mesa} /></a>
           ))}
         </div>
         <button
