@@ -19,6 +19,30 @@ export async function getServerSideProps(context) {
 }
 
 const Menu = ({data}) => {
+  const [mesas]=[]
+  const [mesaAbierta]=[]
+  const [clientePidiendo]=[]
+
+  useEffect(()=>{
+    mesas=JSON.parse(localStorage.getItem("Mesas"));
+    let i=0;
+    mesas.forEach(elemento=>{
+      if(elemento.identi){
+        mesaAbierta=i;
+        let j=0
+        elemento.clientes.forEach(elemento2=>{
+          if(elemento2.identi){
+            clientePidiendo=j;
+          }
+          j++
+        })
+        let t=document.querySelector(".titulo");
+        t.innerHTML="Cliente "+(clientePidiendo+1)+" piediendo..";
+      }
+      i++;
+    })
+  })
+
   useEffect(() => {
     data.map((item, index) => {
       console.log(item.id);
@@ -50,7 +74,7 @@ const Menu = ({data}) => {
       </Head>
       
       <main className="main_1">
-        <h1 className="titulo"> CARTA DISPONIBLE </h1>
+        <h1 className="titulo"></h1>
         <div id = "total_a_pagar"></div>
         <br></br>
         <input type="text" id="buscador" placeholder="Buscador..." onKeyUp={(e) =>{
@@ -66,7 +90,11 @@ const Menu = ({data}) => {
 
       </main>
 
-      <a className="back" href="mesa"> Atrás </a>
+      <a className="back" href="mesa" onClick={()=>{
+        mesas=JSON.parse(localStorage.getItem("Mesas"));
+        mesas[mesaAbierta].clientes[clientePidiendo].identi=!mesas[mesaAbierta].clientes[clientePidiendo].identi;
+        localStorage.setItem("Mesas",JSON.stringify(mesas));
+      }}> Atrás </a>
 
     </div>
   );
