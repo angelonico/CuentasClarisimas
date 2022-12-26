@@ -23,7 +23,7 @@ const Mesa = ({data}) => {
   const mesaAbierta=0; //Mesa en la que se hizo click
   
   const [personas, setPersonas] = useState([
-    { name: "Persona 1" },
+    { name: "Persona 1"},
   ]);
   
   useEffect(() => {
@@ -34,7 +34,6 @@ const Mesa = ({data}) => {
         mesaAbierta=i; //Establece la mesa en que se hizo click
         let t=document.querySelector(".titulo");
         t.innerHTML="Mesa "+(mesaAbierta+1);
-        //if(elemento.Personas.length==0)
         elemento.Personas=personas; //Agrega personas
       }
       i++;
