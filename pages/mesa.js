@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Tarjeta from "../components/tarjeta";
 
 export async function getServerSideProps(context) {
-  const res = await fetch("http://localhost:3000/data/todo.json");
+  const res = await fetch("http://localhost:3000/data/mesa.json");
   const data = await res.json();
 
   if (!data) {
@@ -18,13 +18,13 @@ export async function getServerSideProps(context) {
 }
 
 const Mesa = ({data}) => {
-  const [personasCantidad, setPersonasCantidad] = useState(2);
   const [mesas]=[];
   const mesaAbierta=0; //Mesa en la que se hizo click
-  
-  const [personas, setPersonas] = useState([
-    { name: "Persona 1"},
-  ]);
+  const [info] = useState(data);
+  const mesa = info[0];
+  const clientes = mesa.clientes;
+
+  console.log(clientes)
   
   useEffect(() => {
     cargar_localStorage();
@@ -34,18 +34,15 @@ const Mesa = ({data}) => {
         mesaAbierta=i; //Establece la mesa en que se hizo click
         let t=document.querySelector(".titulo");
         t.innerHTML="Mesa "+(mesaAbierta+1);
-        elemento.Personas=personas; //Agrega personas
+        clientes = mesas[mesaAbierta].clientes;
+        console.log(clientes);
       }
       i++;
     })
     guarda_localStorage();
   });
 
-  function addPersonasCantidad() {
-    setPersonasCantidad(personasCantidad + 1);
-  }
-
-  const addElemento = (tex) => {
+/*  const addElemento = (tex) => {
     const newPersona= [...personas, { name: tex}];
   
     setPersonas(newPersona);
@@ -55,6 +52,7 @@ const Mesa = ({data}) => {
     mesas[mesaAbierta].Personas=personas;
     guarda_localStorage();
   };
+*/
 
   function cargar_localStorage(){
     mesas=JSON.parse(localStorage.getItem("Mesas")) //Trae local storage
@@ -79,8 +77,8 @@ const Mesa = ({data}) => {
         </div>
 
         <div className="grid_2">
-          {personas.map((item, index) => (
-            <a href="menu"><Tarjeta texto={item.name} /></a>
+          {clientes.map((item, index) => (
+            <a href="menu"><Tarjeta texto={"Cliente "+item.numero_cliente} /></a>
         ))}
         </div>
         
