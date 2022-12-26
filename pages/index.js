@@ -58,7 +58,6 @@ const Index = ({data}) => {
         elemento.classList.remove("filtro");
       }
     })
-
   }
 
   return (

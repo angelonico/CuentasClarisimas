@@ -42,18 +42,37 @@ const Mesa = ({data}) => {
     guarda_localStorage();
   });
 
-/*  const addElemento = (tex) => {
-    const newPersona= [...personas, { name: tex}];
-  
-    setPersonas(newPersona);
-    addPersonasCantidad();
-    
-    cargar_localStorage();
-    mesas[mesaAbierta].Personas=personas;
-    guarda_localStorage();
-  };
-*/
+  useEffect(() => {
+    visibilidad();
+  })
 
+  function addElemento(){ //Deja visible una nueva mesa
+    let unico=true,i=0;
+    document.querySelectorAll(".tarjetaCliente").forEach(elemento=>{ //Itera por las mesas
+      if(elemento.classList.contains("filtro") && unico){ //Encuentra la nueva mesa (es la siguiente sin visibilidad)
+        elemento.classList.remove("filtro"); //Hace visible la mesa
+        
+        mesas=JSON.parse(localStorage.getItem("Mesas"));//Obtiene el localstorage
+        clientes[i].visible=!clientes.visible; //Agrega la nueva mesa visible
+        mesas[mesaAbierta].clientes=clientes;
+        localStorage.setItem("Mesas",JSON.stringify(mesas)); //Guarda el local storage
+
+        unico=false;
+      }
+      i++;
+    })
+  }
+
+  function visibilidad(){ //Similar a un refresh()
+    let i=0;
+    document.querySelectorAll(".tarjetaCliente").forEach(elemento=>{ //Itera por las mesas
+      if(!clientes[i++].visible){ //Checkea para saber si debe ocultarlo o no
+        elemento.classList.add("filtro"); //Clase que oculta, definida al final de style.css
+      }else{
+        elemento.classList.remove("filtro");
+      }
+    })
+  }
   function cargar_localStorage(){
     mesas=JSON.parse(localStorage.getItem("Mesas")) //Trae local storage
   }
@@ -78,7 +97,14 @@ const Mesa = ({data}) => {
 
         <div className="grid_2">
           {clientes.map((item, index) => (
-            <a href="menu"><Tarjeta texto={"Cliente "+item.numero_cliente} /></a>
+            <a href="menu" className="tarjetaCliente" onClick={()=>{
+              let iden=item.numero_cliente-1;
+
+              cargar_localStorage();
+              mesas[mesaAbierta].clientes[iden].identi=!mesas[mesaAbierta].clientes[iden].identi;
+              guarda_localStorage();
+            }
+            }><Tarjeta texto={"Cliente "+item.numero_cliente} /></a>
         ))}
         </div>
         
@@ -86,7 +112,7 @@ const Mesa = ({data}) => {
 
       <button
           className="botoncito"
-          onClick={() => addElemento("Persona " + personasCantidad)}
+          onClick={() => addElemento()}
           >
           Agregar pesonas (+)
         </button>
