@@ -71,7 +71,14 @@ const Index = ({data}) => {
         <h1 className="titulo"> MESAS A TU ATENCIÓN </h1>
         <div className="grid_1">
           {mesas.map((item, index) => (
-            <a className="tarjetaMesa" href="mesa"><Tarjeta texto={"Mesa "+item.numero_mesa} /></a>
+            <a className="tarjetaMesa" href="mesa" onClick={()=>{ //Abre la mesa en la que se haga click
+              let iden=item.numero_mesa-1;
+              
+              mesas=JSON.parse(localStorage.getItem("Mesas"));
+              mesas[iden].identi=!mesas[iden].identi;
+              localStorage.setItem("Mesas",JSON.stringify(mesas));
+            }
+            }><Tarjeta texto={"Mesa "+item.numero_mesa} /></a>
           ))}
         </div>
         <button

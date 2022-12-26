@@ -20,23 +20,27 @@ export async function getServerSideProps(context) {
 const Mesa = ({data}) => {
   const [personasCantidad, setPersonasCantidad] = useState(2);
   const [mesas]=[];
+  const mesaAbierta=0; //Mesa en la que se hizo click
   
   const [personas, setPersonas] = useState([
     { name: "Persona 1" },
   ]);
   
-  useEffect(() => {//Carga en un todo
-    mesas=JSON.parse(localStorage.getItem("Mesas"))
+  useEffect(() => {
+    cargar_localStorage();
     let i=0;
     mesas.forEach(elemento=>{
-      elemento.Personas=personas;
+      if(elemento.identi){
+        mesaAbierta=i; //Establece la mesa en que se hizo click
+        let t=document.querySelector(".titulo");
+        t.innerHTML="Mesa "+(mesaAbierta+1);
+        //if(elemento.Personas.length==0)
+        elemento.Personas=personas; //Agrega personas
+      }
+      i++;
     })
-    localStorage.setItem("Mesas",JSON.stringify(mesas));
-      
-      //localStorage.setItem(item.id + "__object", JSON.stringify(item));
+    guarda_localStorage();
   });
-
-  //useEffect(() => setElementos2([]), []);
 
   function addPersonasCantidad() {
     setPersonasCantidad(personasCantidad + 1);
@@ -47,8 +51,19 @@ const Mesa = ({data}) => {
   
     setPersonas(newPersona);
     addPersonasCantidad();
-    console.log(localStorage);
+    
+    cargar_localStorage();
+    mesas[mesaAbierta].Personas=personas;
+    guarda_localStorage();
   };
+
+  function cargar_localStorage(){
+    mesas=JSON.parse(localStorage.getItem("Mesas")) //Trae local storage
+  }
+
+  function guarda_localStorage(){
+    localStorage.setItem("Mesas",JSON.stringify(mesas)); //Guarda local storage
+  }
 
   return (
     <div className="container">
@@ -58,10 +73,10 @@ const Mesa = ({data}) => {
       
       <main className="main_2">
 
-        <h1 className="titulo"> PERSONAS A TU ATENCIÓN </h1>
+        <h1 className="titulo"></h1>
 
         <div className="pedido">
-          ajua
+          Personas a tu atencion
         </div>
 
         <div className="grid_2">
@@ -79,7 +94,11 @@ const Mesa = ({data}) => {
           Agregar pesonas (+)
         </button>
             
-      <a className="back" href="/.."> Atrás </a>
+      <a className="back" href="/.." onClick={()=>{ //Cierra la mesa        
+        mesas=JSON.parse(localStorage.getItem("Mesas"));
+        mesas[mesaAbierta].identi=!mesas[mesaAbierta].identi; 
+        localStorage.setItem("Mesas",JSON.stringify(mesas)); 
+      }}> Atrás </a>
 
     </div>
   );
