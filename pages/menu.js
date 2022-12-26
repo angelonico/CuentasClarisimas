@@ -37,7 +37,7 @@ const Menu = ({data}) => {
           j++
         })
         let t=document.querySelector(".titulo");
-        t.innerHTML="Cliente "+(clientePidiendo+1)+" piediendo..";
+        t.innerHTML="Cliente "+(clientePidiendo+1)+" de la mesa "+ (mesaAbierta+1) + " pidiendo...";
       }
       i++;
     })
@@ -45,9 +45,7 @@ const Menu = ({data}) => {
 
   useEffect(() => {
     data.map((item, index) => {
-      console.log(item.id);
       if (localStorage.getItem(item.id) === null) {
-        localStorage.setItem(item.id, JSON.stringify(item.done));
       }
       //localStorage.setItem(item.id + "__object", JSON.stringify(item));
     });

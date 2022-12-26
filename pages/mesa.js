@@ -33,7 +33,7 @@ const Mesa = ({data}) => {
       if(elemento.identi){
         mesaAbierta=i; //Establece la mesa en que se hizo click
         let t=document.querySelector(".titulo");
-        t.innerHTML="Mesa "+(mesaAbierta+1);
+        t.innerHTML="MESA "+(mesaAbierta+1);
         clientes = mesas[mesaAbierta].clientes;
         console.log(clientes);
       }
@@ -92,7 +92,7 @@ const Mesa = ({data}) => {
         <h1 className="titulo"></h1>
 
         <div className="pedido">
-          Personas a tu atencion
+          Clientes de esta mesa 
         </div>
 
         <div className="grid_2">

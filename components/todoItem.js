@@ -5,40 +5,44 @@ import { isConditionalExpression } from "typescript";
 var precio = 0;
 var cant = 0;
 
+
 const TodoItem = ({ item }) => {
   const [checked, setChecked] = useState(item.done);
-  
-  useEffect(() => {
-    if (localStorage.getItem(item.id) !== null)
-    setChecked(JSON.parse(localStorage.getItem(item.id)));
-  }, []);
-  
-  useEffect(() => {
-    localStorage.setItem(item.id, JSON.stringify(checked));
-  }, [checked]);
+  const [mesas]=[];
+  const [mesaAbierta]=[];
+  const [clientePidiendo]=[];
   
   useEffect(()=>{
+    mesas=JSON.parse(localStorage.getItem("Mesas"))
+    let i=0;
+    mesas.forEach(elemento=>{
+      if(elemento.identi){
+        mesaAbierta=i; //Establece la mesa en que se hizo click
+        let j = 0;
+        elemento.clientes.forEach(cliente=>{
+          if (cliente.identi){
+            clientePidiendo = j;
+          }
+          j++;
+        })
+      }
+      i++;
+    })
     refresh();
     actualizarInfoItem(0,0);
   });
+
   
-  function actualizarListaPedido(id, cantidad){ //id es el id del producto, y cantidad es la cantidad de productos que se están solicitando, puede ser 1 (pedir) o -1 (devolver)
-    let pedido = JSON.parse(localStorage.getItem("pedido")); // "Recoge" el pedido guardado en el localStorage
+  function actualizarListaPedido(id, cantidad, pedidoCliente){ //id es el id del producto, y cantidad es la cantidad de productos que se están solicitando, puede ser 1 (pedir) o -1 (devolver)
     var pedido_existente = false; // Booleano que se usa para ver si el cliente ya pidió el mismo elemento anteriormente
     let itemCantidad=document.querySelectorAll(".cantidad-item");
-    let x = false; // Booleano utilizado para verificar si se realizo algún pedido y se haya modificado el arreglo del pedido del cliente (ya seaa agregar o quitar elementos)
-    for (let i = 0; i < pedido.length; i++){ //Recorrer el pedido de 1 cliente
-      if (pedido[i][0] == id){ // verifica si el elemento ya fue pedido anteriormente
+    
+    for (let i = 0; i < pedidoCliente.length; i++){ //Recorrer el pedido del cliente
+      if (pedidoCliente[i][0] == id){ // verifica si el elemento ya fue pedido anteriormente
         pedido_existente = true;
-        if ((pedido[i][1] + cantidad)>=0){  // verifica que no se devuelvan elementos que no se hayan pedido (imposibilita tener -1 elementos)
-          pedido[i][1] += cantidad;
-          x = true;
-          itemCantidad[id].innerHTML=pedido[i][1];
-          let n=0;
-          for(let j in itemCantidad){
-            console.log("Item "+n+" "+j);
-            n++;
-          }
+        if ((pedidoCliente[i][1] + cantidad)>=0){  // verifica que no se devuelvan elementos que no se hayan pedido (imposibilita tener -1 elementos)
+          pedidoCliente[i][1] += cantidad;
+          itemCantidad[id].innerHTML=pedidoCliente[i][1];
         }
       }
     }
@@ -46,67 +50,49 @@ const TodoItem = ({ item }) => {
     if (!pedido_existente){ //Si el elemento que se esta pidiendo no se pidió con anterioridad, entra aquí
       if (cantidad>0){ //Verifica que no se estén restando elementos
         var agregar_pedido = [id,cantidad];
-        pedido.push(agregar_pedido);
-        itemCantidad[id].innerHTML=pedido[pedido.length-1][1];
-      x = true;
+        pedidoCliente.push(agregar_pedido);
+        itemCantidad[id].innerHTML=pedidoCliente[pedidoCliente.length-1][1];
       }
     }
-    localStorage.setItem("pedido", JSON.stringify(pedido));
-    return x;
-  }
-
-  function crearListaPedido(id){
-    let pedido = [[id, 0]];
-    localStorage.setItem("pedido", JSON.stringify(pedido));
-    return true; 
+    console.log("pedido despues de ordenar: " + pedidoCliente);
+    return pedidoCliente;
   }
   
-  function getPedido(suma){
-    var x = false;
-    if (localStorage.getItem("pedido")){
-      console.log("Actualizando pedido...")
-      x = actualizarListaPedido(item.id, suma);
-    }
-    else{
-      console.log("Creando nuevo pedido...")
-      x = crearListaPedido(item.id)
-    }
-    return x;
+  function getPedido(cant){
+    let mesas = JSON.parse(localStorage.getItem("Mesas"));
+    let pedido = mesas[mesaAbierta].clientes[clientePidiendo].pedido;
+    console.log("Pedido antes de ordenar: "+ pedido); 
+    mesas[mesaAbierta].clientes[clientePidiendo].pedido = actualizarListaPedido(item.id, cant, pedido);
+    localStorage.setItem("Mesas",JSON.stringify(mesas));
   }
 
-  function guardar_total_localstorage(suma){
-    let total = JSON.parse(localStorage.getItem("total"));
-    total = total + suma;
+  
+  function guardar_total(suma){
+    var total = 0;
+    mesas = JSON.parse(localStorage.getItem("Mesas"));
+    total = mesas[mesaAbierta].clientes[clientePidiendo].subtotal + suma;
     if (total<0){
       total -= suma;
     }
-    localStorage.setItem("total", JSON.stringify(total));
+    mesas[mesaAbierta].clientes[clientePidiendo].subtotal = total;
+    localStorage.setItem("Mesas", JSON.stringify(mesas));
     console.log(total);
   }
 
-  function cargar_total_localstorage(){
-    if (localStorage.getItem("total")){
-      let total = JSON.parse(localStorage.getItem( "total" ));
-    }
-    else{
-      guardar_total_localstorage(0);
-    }
-  }
-  
   function refresh(){
-    var a,b;
+    var b;
+    mesas = JSON.parse(localStorage.getItem("Mesas"));
+    let clientes = mesas[mesaAbierta].clientes;
+    let pidiendo = clientes[clientePidiendo];
+    let mostrar_total = pidiendo.subtotal;
+    b = document.getElementById("total_a_pagar");
 
-    a = localStorage.getItem("total");
-    b=document.getElementById("total_a_pagar");
-
-    b.innerHTML="Total $"+a;
+    b.innerHTML="Total $"+mostrar_total;
   }
 
   function actualizarInfoItem(precio,cant){
-    if (getPedido(cant)){
-      cargar_total_localstorage();
-      guardar_total_localstorage(precio);
-    }
+    getPedido(cant);
+    guardar_total(precio);
     refresh();
   }
 
