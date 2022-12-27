@@ -71,6 +71,7 @@ const Menu = ({data}) => {
     mesas[mesaAbierta].clientes[clientePidiendo].subtotal=0;
     mesas[mesaAbierta].clientes[clientePidiendo].pedido=[];
     mesas[mesaAbierta].clientes[clientePidiendo].identi=!mesas[mesaAbierta].clientes[clientePidiendo].identi;
+    mesas[mesaAbierta].clientes[clientePidiendo].visible=false;
     localStorage.setItem("Mesas",JSON.stringify(mesas))
   }
   
