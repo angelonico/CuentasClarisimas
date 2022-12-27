@@ -63,6 +63,16 @@ const Menu = ({data}) => {
       //La clase filtro esta definida en style.css
     })
   }
+
+  function finalizaCliente(){
+    alert(`Ahora, proceda a pagar la wea preciado cliente que divide cuenta
+      Total: `+mesas[mesaAbierta].clientes[clientePidiendo].subtotal)
+    mesas=JSON.parse(localStorage.getItem("Mesas"));
+    mesas[mesaAbierta].clientes[clientePidiendo].subtotal=0;
+    mesas[mesaAbierta].clientes[clientePidiendo].pedido=[];
+    mesas[mesaAbierta].clientes[clientePidiendo].identi=!mesas[mesaAbierta].clientes[clientePidiendo].identi;
+    localStorage.setItem("Mesas",JSON.stringify(mesas))
+  }
   
   return (
     <div className="container">
@@ -74,6 +84,11 @@ const Menu = ({data}) => {
       <main className="main_1">
         <h1 className="titulo"></h1>
         <div id = "total_a_pagar"></div>
+        <div id="finalizaCompraIndividual">
+          <a href="mesa"><button onClick={()=>{
+            finalizaCliente();
+          }}>Finalizar Compra</button></a>
+        </div>
         <br></br>
         <input type="text" id="buscador" placeholder="Buscador..." onKeyUp={(e) =>{
           buscar(e);

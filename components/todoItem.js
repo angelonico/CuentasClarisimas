@@ -28,8 +28,11 @@ const TodoItem = ({ item }) => {
       }
       i++;
     })
-    refresh();
-    actualizarInfoItem(0,0);
+    //console.log(mesas[mesaAbierta].clientes[clientePidiendo]);
+    //if(mesas[mesaAbierta].cliente[clientePidiendo].pedido.length!=0){
+      refresh();
+      actualizarInfoItem(0,0);
+    //}
   });
 
   
@@ -76,7 +79,7 @@ const TodoItem = ({ item }) => {
     }
     mesas[mesaAbierta].clientes[clientePidiendo].subtotal = total;
     localStorage.setItem("Mesas", JSON.stringify(mesas));
-    console.log(total);
+    //console.log(total);
   }
 
   function refresh(){

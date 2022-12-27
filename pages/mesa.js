@@ -42,6 +42,17 @@ const Mesa = ({data}) => {
     guarda_localStorage();
   });
 
+  useEffect(()=>{
+    cargar_localStorage();
+    mesas[mesaAbierta].total=0;
+    mesas[mesaAbierta].clientes.forEach(pedid=>{
+      mesas[mesaAbierta].total+=pedid.subtotal;
+      console.log("pedid: "+pedid);
+    })
+    let t=document.querySelector(".totalMesa");
+    t.innerHTML="Total de esta mesa: "+(mesas[mesaAbierta].total);
+  })
+
   useEffect(() => {
     visibilidad();
   })
@@ -81,6 +92,27 @@ const Mesa = ({data}) => {
     localStorage.setItem("Mesas",JSON.stringify(mesas)); //Guarda local storage
   }
 
+  function finalizaMesa(){
+    alert(`Ahora proceda a pagar el total de la mesa
+      Total: `+mesas[mesaAbierta].total);
+    cargar_localStorage();
+    clientes.forEach(setea=>{
+      if(setea.numero_cliente==1){
+        setea.visible=true;
+      }else{
+        setea.visible=false;
+      }
+      setea.pedido=[]
+      setea.subtotal=0;
+    })
+    
+    mesas[mesaAbierta].visible=false;
+    mesas[mesaAbierta].clientes=clientes;
+    mesas[mesaAbierta].identi=!mesas[mesaAbierta].identi;
+
+    guarda_localStorage();
+  }
+
   return (
     <div className="container">
       <Head>
@@ -95,6 +127,17 @@ const Mesa = ({data}) => {
           Clientes de esta mesa 
         </div>
 
+        <div className="totalMesa">
+          Total de esta mesa:
+        </div>
+        <a href="/..">
+          <button className="finalizaCompra" onClick={()=>{
+            finalizaMesa();
+          }}>
+            Finalizar Compra
+          </button>
+        </a>
+        
         <div className="grid_2">
           {clientes.map((item, index) => (
             <a href="menu" className="tarjetaCliente" onClick={()=>{
@@ -109,6 +152,7 @@ const Mesa = ({data}) => {
         </div>
         
       </main>
+
 
       <button
           className="botoncito"
