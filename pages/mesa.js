@@ -33,7 +33,7 @@ const Mesa = ({data}) => {
       if(elemento.identi){
         mesaAbierta=i; //Establece la mesa en que se hizo click
         let t=document.querySelector(".titulo");
-        t.innerHTML="MESA "+(mesaAbierta+1);
+        t.innerHTML="MESA "+ (mesaAbierta+1);
         clientes = mesas[mesaAbierta].clientes;
         console.log(clientes);
       }
@@ -50,7 +50,7 @@ const Mesa = ({data}) => {
       console.log("pedid: "+pedid);
     })
     let t=document.querySelector(".totalMesa");
-    t.innerHTML="Total de esta mesa: "+(mesas[mesaAbierta].total);
+    t.innerHTML="Total de esta mesa: $"+(mesas[mesaAbierta].total);
   })
 
   useEffect(() => {
@@ -119,26 +119,15 @@ const Mesa = ({data}) => {
         <title> Mesa </title>
       </Head>
       
-      <main className="main_2">
+      <main className="main">
 
         <h1 className="titulo"></h1>
-
-        <div className="pedido">
-          Clientes de esta mesa 
-        </div>
-
-        <div className="totalMesa">
-          Total de esta mesa:
-        </div>
-        <a href="/..">
-          <button className="finalizaCompra" onClick={()=>{
-            finalizaMesa();
-          }}>
-            Finalizar Compra
-          </button>
-        </a>
         
-        <div className="grid_2">
+        <div className="pedido">
+          Clientes de esta Mesa: 
+        </div>
+
+        <div className="grid_1">
           {clientes.map((item, index) => (
             <a href="menu" className="tarjetaCliente" onClick={()=>{
               let iden=item.numero_cliente-1;
@@ -147,25 +136,33 @@ const Mesa = ({data}) => {
               mesas[mesaAbierta].clientes[iden].identi=!mesas[mesaAbierta].clientes[iden].identi;
               guarda_localStorage();
             }
-            }><Tarjeta texto={"Cliente "+item.numero_cliente} /></a>
-        ))}
+          }><Tarjeta texto={"Cliente "+item.numero_cliente} /></a>
+          ))}
         </div>
-        
+
+        <div className="totalMesa"></div>
+
+        <a className="finalizar_1" href="/..">
+          <button className="finalizaCompra" onClick={()=>{
+            finalizaMesa();
+          }}> Finalizar Compra
+          </button>
+        </a>
+
       </main>
-
-
+        
       <button
-          className="botoncito"
-          onClick={() => addElemento()}
-          >
-          Agregar pesonas (+)
-        </button>
-            
+        className="botoncito"
+        onClick={() => addElemento()}
+        >
+        Agregar pesonas (+)
+      </button>
+
       <a className="back" href="/.." onClick={()=>{ //Cierra la mesa        
         mesas=JSON.parse(localStorage.getItem("Mesas"));
         mesas[mesaAbierta].identi=!mesas[mesaAbierta].identi; 
         localStorage.setItem("Mesas",JSON.stringify(mesas)); 
-      }}> Atrás </a>
+      }}> ATRÁS </a>
 
     </div>
   );

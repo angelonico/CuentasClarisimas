@@ -66,8 +66,10 @@ const Index = ({data}) => {
         <title> Mesas </title>
       </Head>
 
-      <main className="main_1">
+      <main className="main">
+
         <h1 className="titulo"> MESAS A TU ATENCIÓN </h1>
+
         <div className="grid_1">
           {mesas.map((item, index) => (
             <a className="tarjetaMesa" href="mesa" onClick={()=>{ //Abre la mesa en la que se haga click
@@ -80,10 +82,8 @@ const Index = ({data}) => {
             }><Tarjeta texto={"Mesa "+item.numero_mesa} /></a>
           ))}
         </div>
-        <button
-            className="botoncito"
-            onClick={() => addElemento()}
-          >
+
+        <button className="botoncito" onClick={() => addElemento()}>
             Agregar Mesa (+)
         </button>
 

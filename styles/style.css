@@ -6,11 +6,12 @@
   }
   body {
     color: rgb(0, 0, 0);
-    background: black;
+    background: #000000;
   }
 }
 
 * {
+  color: #e0e0e0;
   box-sizing: border-box;
   text-align: center;
 }
@@ -24,20 +25,9 @@ a {
   padding: 0rem;
 }
 
-.main_1 {
-  background-color: #ea899a;
+.main {
+  background-color: #000000;
   min-height: 100vh;
-  padding: 0rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.main_2 {
-  background-color: #ea899a;
-  min-height: 100vh;
-  padding: 0rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -50,7 +40,7 @@ a {
   line-height: 0%;
   font-size: 7;
   border: 6px solid;
-  background: #3c9184;
+  background: #2E0249 ;
   border-radius: 10px;
   padding: 2%;
   justify-content: center;
@@ -61,18 +51,7 @@ a {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
-}
-
-.grid_2 {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 500px;
-  position: fixed;
-  top: 20%;
-  right: 0%;
+  max-width: 100px;
 }
 
 .botoncito {
@@ -80,80 +59,81 @@ a {
   padding: .5rem;
   color: inherit;
   text-decoration: none;
-  background: rgb(215, 215, 215);
-  border: 2px solid black;
+  background: #A91079;
+  border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease, background-color 0.15s ease;
   max-width: 300px;
   position: fixed;
-  bottom: 0px;
-  right: 90px; 
-}
-
-.botoncito:hover,
-.botoncito:focus,
-.botoncito:active {
-  color: #3c9184;
-  border-color: #3c9184;
-  background-color: #000000;
+  bottom: 1%;
+  right: 1%; 
 }
 
 .boton-precio {
   width: 7%;
   color: #e0e0e0;
-  background-color: black;
-  border: 0px;
+  background-color: #3E065F;
+  border: 2px solid;
   border-radius: 10px;
 }
 
 .tarjeta{
+  color: #e0e0e0;
   margin: 1rem;
   padding: 1rem;
   color: inherit;
   text-decoration: none;
-  background: whitesmoke;
-  border: 2px solid black;
+  background: #570A57;
+  border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease, background-color 0.15s ease;
-  min-width: 150px;
-  max-width: 300px;
+  width: 130px;
 }
 
 .back {
   font-weight: bold;
   margin: 1rem;
   padding: 1rem;
-  color: black;
   text-decoration: none;
-  background: rgb(45, 115, 168);
+  background: #F806CC;
   border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease;
   max-width: 300px;
   position: fixed;
-  top: 10px; 
-  left: 10px;
-}
-
-.tarjeta:hover,
-.tarjeta:focus,
-.tarjeta:active {
-  color: #3c9184;
-  border-color: #3c9184;
-  background-color: #000000;
+  top: 1%; 
+  left: 1%;
 }
 
 .pedido {
-  padding: .3%;
-  border: 2px solid #000000;
+  margin-bottom: 30px;
+  font-weight: bold;
+  line-height: 0%;
+  font-size: 7;
+  border: 4px solid;
+  background: #8E05C2;
   border-radius: 10px;
-  background-color: #e0e0e0;
-  left: 150px;
+  padding: 2%;
+  justify-content: center;
+}
+
+.totalMesa {
+  font-weight: bold;
+  line-height: 0%;
+  font-size: 7;
+  border: 4px solid;
+  background: #8E05C2;
+  border-radius: 10px;
+  padding: 18px;
+  justify-content: center;
+  position: fixed;
+  bottom: 87px;
 }
 
 #buscador {
   border: 6px solid;
   border-radius: 6px;
+  background-color: #C62A88;
 }
 
 .a-pedir {
@@ -161,7 +141,7 @@ a {
   text-align: left;
   border: 6px solid;
   border-radius: 10px;
-  background-color: #3c9184;
+  background-color: #8E05C2;
 }
 
 .item {
@@ -183,12 +163,52 @@ a {
   font-weight: 500;
 }
 
+.fin {
+  width: 312px;
+  position: sticky;
+  bottom: 1%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
 #total_a_pagar {
+  height: 37px;
+  width: 150px;
   font-weight: 500;
   padding: .4%;
   border: 5px solid;
   border-radius: 10px;
-  background-color: teal;
+  background-color: #590995;
+  position: sticky;
+  bottom: 6%;
+}
+
+.finalizar_1 {
+  font-weight: bold;
+  margin: 1rem;
+  padding: .4%;
+  color: #e0e0e0;
+  background: #F806CC;
+  border: 5px solid;
+  border-radius: 10px;
+  transition: color .15s ease, border-color 0.15s ease;
+  width: 150px;
+  position: fixed;
+  bottom: 25px;
+}
+
+.finalizar_2 {
+  height: 37px;
+  font-weight: bold;
+  padding: .4%;
+  color: #e0e0e0;
+  background: #A91079;
+  border: 5px solid;
+  border-radius: 10px;
+  transition: color .15s ease, border-color 0.15s ease;
+  width: 150px;
+  position: sticky;
+  bottom: 1%;
 }
 
 .cantidad-item {
@@ -201,5 +221,23 @@ a {
 }
 
 .filtro{
-  display:none;
+  display: none;
+}
+
+.botoncito:hover,
+.botoncito:focus,
+.botoncito:active,
+.tarjeta:hover,
+.tarjeta:focus,
+.tarjeta:active ,
+.finalizar_1:hover,
+.finalizar_1:focus,
+.finalizar_1:active,
+.finalizar_2:hover,
+.finalizar_2:focus,
+.finalizar_2:active,
+.back:hover,
+.back:focus,
+.back:active {
+  background-color: #03C4A1;
 }

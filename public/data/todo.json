@@ -8,7 +8,7 @@
     {"id":6 , "price": 1000, "title":"Agua","done":false, "cantidad":0},
     {"id":7 , "price": 7000, "title":"Crudo","done":false, "cantidad":0},
     {"id":8 , "price": 3900, "title":"Hamburguesa","done":false, "cantidad":0},
-    {"id":9 , "price": 1400, "title":"Pure","done":false, "cantidad":0},
+    {"id":9 , "price": 1400, "title":"Puré","done":false, "cantidad":0},
     {"id":10 , "price": 2000, "title":"Arroz","done":false, "cantidad":0},
     {"id":11 , "price": 1200, "title":"Papas Fritas","done":false, "cantidad":0},
     {"id":12 , "price": 1799, "title":"Completo","done":false, "cantidad":0},
@@ -17,9 +17,9 @@
     {"id":15 , "price": 2000, "title":"Empanada","done":false, "cantidad":0},
     {"id":16 , "price": 4500, "title":"Cazuela","done":false, "cantidad":0},
     {"id":17 , "price": 3700, "title":"Pollo","done":false, "cantidad":0},
-    {"id":18 , "price": 2100, "title":"Pie de limon","done":false, "cantidad":0},
+    {"id":18 , "price": 2100, "title":"Pie de Limón","done":false, "cantidad":0},
     {"id":19 , "price": 3000, "title":"Merluza","done":false, "cantidad":0},
-    {"id":20 , "price": 6000, "title":"Salmon","done":false, "cantidad":0},
+    {"id":20 , "price": 6000, "title":"Salmón","done":false, "cantidad":0},
     {"id":21 , "price": 3000, "title":"Pavo","done":false, "cantidad":0},
-    {"id":22 , "price": 4000, "title":"Porotos con rienda","done":false, "cantidad":0}
+    {"id":22 , "price": 4000, "title":"Porotos con Rienda","done":false, "cantidad":0}
 ]
