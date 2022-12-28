@@ -198,6 +198,7 @@ a {
 }
 
 .finalizar_2 {
+  margin-top: 5px;
   height: 37px;
   font-weight: bold;
   padding: .4%;
@@ -208,7 +209,7 @@ a {
   transition: color .15s ease, border-color 0.15s ease;
   width: 150px;
   position: sticky;
-  bottom: 1%;
+  bottom: -1%;
 }
 
 .cantidad-item {
