@@ -102,7 +102,7 @@ const Menu = ({data}) => {
 
         <a className="finalizar_2" href="mesa" onClick={()=>{
           finalizaCliente();
-          }}> Finalizar Compra
+          }}> Pagar
         </a>
         
 
