@@ -5,8 +5,8 @@
     color-scheme: dark;
   }
   body {
-    color: rgb(0, 0, 0);
-    background: #000000;
+    color: rgb(255, 255, 255);
+    background: #ffffff;
   }
 }
 
@@ -26,7 +26,7 @@ a {
 }
 
 .main {
-  background-color: #000000;
+  background-color: #f16164;
   min-height: 100vh;
   flex: 1;
   display: flex;
@@ -40,7 +40,7 @@ a {
   line-height: 0%;
   font-size: 7;
   border: 6px solid;
-  background: #2E0249 ;
+  background: #008000 ;
   border-radius: 10px;
   padding: 2%;
   justify-content: center;
@@ -59,7 +59,7 @@ a {
   padding: .5rem;
   color: inherit;
   text-decoration: none;
-  background: #A91079;
+  background: #004080;
   border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease, background-color 0.15s ease;
@@ -72,7 +72,7 @@ a {
 .boton-precio {
   width: 7%;
   color: #e0e0e0;
-  background-color: #3E065F;
+  background-color: #004080;
   border: 2px solid;
   border-radius: 10px;
 }
@@ -83,7 +83,7 @@ a {
   padding: 1rem;
   color: inherit;
   text-decoration: none;
-  background: #570A57;
+  background: #004080;
   border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease, background-color 0.15s ease;
@@ -95,7 +95,7 @@ a {
   margin: 1rem;
   padding: 1rem;
   text-decoration: none;
-  background: #F806CC;
+  background: #004080;
   border: 2px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease;
@@ -111,7 +111,7 @@ a {
   line-height: 0%;
   font-size: 7;
   border: 4px solid;
-  background: #8E05C2;
+  background: #008000;
   border-radius: 10px;
   padding: 2%;
   justify-content: center;
@@ -122,7 +122,7 @@ a {
   line-height: 0%;
   font-size: 7;
   border: 4px solid;
-  background: #8E05C2;
+  background: #008000;
   border-radius: 10px;
   padding: 18px;
   justify-content: center;
@@ -133,7 +133,7 @@ a {
 #buscador {
   border: 6px solid;
   border-radius: 6px;
-  background-color: #C62A88;
+  background-color: #ffffff;
 }
 
 .a-pedir {
@@ -141,7 +141,7 @@ a {
   text-align: left;
   border: 6px solid;
   border-radius: 10px;
-  background-color: #8E05C2;
+  background-color: #008000;
 }
 
 .item {
@@ -178,7 +178,7 @@ a {
   padding: .4%;
   border: 5px solid;
   border-radius: 10px;
-  background-color: #590995;
+  background-color: #008000;
   position: sticky;
   bottom: 6%;
 }
@@ -188,7 +188,7 @@ a {
   margin: 1rem;
   padding: .4%;
   color: #e0e0e0;
-  background: #F806CC;
+  background: #004080;
   border: 5px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease;
@@ -202,7 +202,7 @@ a {
   font-weight: bold;
   padding: .4%;
   color: #e0e0e0;
-  background: #A91079;
+  background: #004080;
   border: 5px solid;
   border-radius: 10px;
   transition: color .15s ease, border-color 0.15s ease;
@@ -218,6 +218,8 @@ a {
   border: solid;
   border-radius: 10px;
   font-weight: 550;
+  background: #004080;
+
 }
 
 .filtro{
